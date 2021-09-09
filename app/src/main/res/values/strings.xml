@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">vagalumeAPI</string>
+    <string name="title_mainActivity">Find your song</string>
+    <string name="inputi_singerName">Singer\'s name</string>
+    <string name="inputi_songName">Name of the song</string>
+    <string name="btn_searchSong">search for the music</string>
+</resources>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="16dp"
+    android:background="#ececec">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="16dp"
+            android:text="@string/title_mainActivity"
+            android:textAllCaps="true"
+            android:textSize="24sp"
+            android:textColor="#142d4c"
+            android:textStyle="bold">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/logo_vagalume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_vagalume"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title">
+        </ImageView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_nome_cantor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:padding="14dp"
+            android:hint="@string/inputi_singerName"
+            android:textColorHint="#142d4c"
+            app:hintTextColor="#142d4c"
+            app:placeholderTextColor="#142d4c"
+            app:boxStrokeColor="#9fd3c7"
+            app:boxStrokeWidthFocused="4dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_nome_musica"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/input_nome_cantor"
+            app:layout_constraintTop_toBottomOf="@+id/input_nome_cantor"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:padding="14dp"
+            android:hint="@string/inputi_songName"
+            android:textColorHint="#142d4c"
+            app:hintTextColor="#142d4c"
+            app:placeholderTextColor="#142d4c"
+            app:boxStrokeColor="#9fd3c7"
+            app:boxStrokeWidthFocused="4dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_pesquisar_musica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_nome_musica"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:text="@string/btn_searchSong"
+            android:textColor="#ececec"
+            android:backgroundTint="#385170">
+        </Button>
+
+        <ProgressBar
+            android:id="@+id/barra_progresso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/button_pesquisar_musica"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="12dp"
+            android:visibility="gone">
+        </ProgressBar>
+
+        <TextView
+            android:id="@+id/letra_musica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_pesquisar_musica"
+            android:text=""
+            android:lineSpacingExtra="8dp"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            android:textColor="#142d4c"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
