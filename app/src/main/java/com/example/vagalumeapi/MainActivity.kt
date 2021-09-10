@@ -46,13 +46,34 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Log.d("apiVagalume", resultadoLetraMusicas.toString())
                     val pegarMusica = resultadoLetraMusicas.mus
+                    //Quando você usa o first(), caso o campo esteja vazio
+                    //Você irá receber uma exceção. Neste caso você pode tentar
+                    //utilizar o pegarMusica.firstOrNull()
+                    //O especial dessa função é que ela retorna null nestes casos
+                    //Então é fácil tratar tanto com ?.let {} quanto com if! :)
+                    //O que você acha?
                     val pegarLetraMusica = pegarMusica.first().text
                     Log.d("apiVagalume2", pegarLetraMusica)
                     letraMusica.text = pegarLetraMusica
                     barraProgresso.visibility = View.INVISIBLE
                 }
             }
+            //O que você acha de as vezes manter o campo preenchido até ter
+            //erro ou sucesso no busca e de travar os campos para edição durante
+            //isto? Você pode tentar usar nos campos de texto e botão:
+            //isEnabled = false
+            //ex: inputNomeCantor.editText?.isEnabled = false
             limparCamposInput()
+
+            //Sobre fechar o teclado, vou deixar um link para você dar uma olhada:
+            //É um jeito muito "complexo" então vou olhar se não temos melhor alternativas atualmente
+            //Mas este funciona e é bem utilizado atualmente, haha
+            //Você vai precisar do InputMethodManager e de executar o hideSoftInputFromWindow
+            //O código está em java mas é muito similar em Kotlin
+            //https://www.geeksforgeeks.org/how-to-programmatically-hide-android-soft-keyboard/
+
+            //Para dar foco em um campo você pode sempre executar o requestFocus()
+            //Exemplo: inputNomeCantor.editText?.requestFocus()
         }
     }
 
@@ -72,9 +93,17 @@ class MainActivity : AppCompatActivity() {
         return api
     }
 
+    //Considerando que os campos inputNomeCantos e inputNomeMusica
+    //O que você acha de mover os findViewById para a classe?
+    //Assim você pode remover a função pegarEntradaUsuario e acessar
+    //O text diretamente onde você precisar
+    //Para limpar os campos você pode usar a mesma variável para
+    //dar o clear() na função limparCamposInput() :)
+    //O que você acha?
     fun pegarEntradaUsuario() : Pair<String, String>{
         val inputNomeCantor = findViewById<TextInputLayout>(R.id.input_nome_cantor)
         val inputNomeMusica = findViewById<TextInputLayout>(R.id.input_nome_musica)
+
 
         val nomeCantor = inputNomeCantor.editText?.text.toString()
         val nomeMusica = inputNomeMusica.editText?.text.toString()
