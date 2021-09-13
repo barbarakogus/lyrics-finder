@@ -1,3 +1,5 @@
 package com.example.vagalumeapi
 
-data class Artista(val name: String)
+import com.google.gson.annotations.SerializedName
+
+data class Artista(@SerializedName("name") val singerName: String)

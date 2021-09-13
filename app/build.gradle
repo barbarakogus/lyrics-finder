@@ -40,6 +40,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
     implementation 'com.squareup.retrofit2:retrofit:2.9.0' //implementacao do retrofiti
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0' //implementacao do converters
+    implementation 'com.google.code.gson:gson:2.8.8' //implementar novas notacoes, como ex: @SeriallizedName
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

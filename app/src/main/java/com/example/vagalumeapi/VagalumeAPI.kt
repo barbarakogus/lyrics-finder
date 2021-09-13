@@ -10,7 +10,7 @@ interface VagalumeAPI {
     suspend fun bucarLetraMusica(
         @Query("art") art: String,
         @Query("mus") mus: String
-    ) : ResultadoPesquisa
+    ) : ResultadoPesquisa?
 }
 
 

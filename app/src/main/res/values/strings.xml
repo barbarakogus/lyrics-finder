@@ -4,4 +4,5 @@
     <string name="inputi_singerName">Singer\'s name</string>
     <string name="inputi_songName">Name of the song</string>
     <string name="btn_searchSong">search for the music</string>
+    <string name="mensagem_erro_requisicao">Dados incorretos, por favor tente novamente.</string>
 </resources>
