@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">vagalumeAPI</string>
     <string name="title_mainActivity">Find your song</string>
-    <string name="inputi_singerName">Singer\'s name</string>
-    <string name="inputi_songName">Name of the song</string>
+    <string name="input_singerName">Singer\'s name</string>
+    <string name="input_songName">Name of the song</string>
     <string name="btn_searchSong">search for the music</string>
     <string name="mensagem_erro_requisicao">Dados incorretos, por favor tente novamente.</string>
+    <string name="mensagem_erro_requisicao_conexao">Erro na conexão.</string>
+    <string name="vagalume_imagem_description">logo da marca Vagalume. Esta marca está disponibilizando os dados para esse projeto.</string>
 </resources>

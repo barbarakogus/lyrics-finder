@@ -4,10 +4,10 @@ package com.example.vagalumeapi
 //mudar a cor do cursor
 //aumentar fonte do editText
 //no final da pagina criar um link para direcionar ao vagalume
+//arrumar resourses das cores
 
 import android.content.Context
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,90 +17,80 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.view {
 
-    var inputNomeCantor : TextInputLayout? = null
-    var inputNomeMusica : TextInputLayout? = null
+    private val presenter = MainPresenter(this)
+
+    private var inputNomeCantor : TextInputLayout? = null
+    private var inputNomeMusica : TextInputLayout? = null
+    var barraProgresso : ProgressBar? = null
+    var letraMusica : TextView? = null
+    var menssagemErro : TextView? = null
+    var btnPesquisarMusica : Button? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnPesquisarMusica = findViewById<Button>(R.id.button_pesquisar_musica)
-        val letraMusica = findViewById<TextView>(R.id.letra_musica)
-        val menssagemErro = findViewById<TextView>(R.id.menssagem_erro)
-        val barraProgresso = findViewById<ProgressBar>(R.id.barra_progresso)
-        inputNomeCantor = findViewById(R.id.input_nome_cantor)
-        inputNomeMusica = findViewById(R.id.input_nome_musica)
+        //setTitle("Find your song") ou apenas
+        title = "Find your song"
 
-        btnPesquisarMusica.setOnClickListener {
-            barraProgresso.visibility = View.VISIBLE
-            val vagalumeApi = configurarRetrofit()
-            val nomeCantor = inputNomeCantor?.editText?.text.toString()
-            val nomeMusica = inputNomeMusica?.editText?.text.toString()
-
-            CoroutineScope(Dispatchers.IO).launch {
-
-                val resultadoLetraMusicas = vagalumeApi.bucarLetraMusica(nomeCantor, nomeMusica)
-
-                withContext(Dispatchers.Main) {
-                    Log.d("apiVagalume", resultadoLetraMusicas.toString())
-
-                    val pegarMusica = resultadoLetraMusicas?.mus
-                    val pegarLetraMusica = pegarMusica?.firstOrNull()?.lyrics
-
-                    if(pegarLetraMusica != null) {
-                        Log.d("apiVagalume2", pegarLetraMusica)
-                        menssagemErro.text = ""
-                        letraMusica.text = pegarLetraMusica
-                        limparCamposInput()
-                    }else {
-                        letraMusica.text = ""
-                        menssagemErro.text = getString(R.string.mensagem_erro_requisicao)
-                        Toast.makeText(this@MainActivity, "Dados incorretos", Toast.LENGTH_SHORT).show()
-                    }
-                    closeKeyboard()
-                    barraProgresso.visibility = View.INVISIBLE
-                }
-            }
+        bindViews()
+        btnPesquisarMusica?.setOnClickListener {
+            presenter.buscarLetraMusica(pegarEntradaUsuario().first, pegarEntradaUsuario().second)
+            closeKeyboard()
+            esconderBarraProgresso()
         }
     }
 
-    fun configurarRetrofit() : VagalumeAPI {
-        val okHttpClient = OkHttpClient()
-            .newBuilder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.vagalume.com.br/")
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val api = retrofit.create(VagalumeAPI::class.java)
-        return api
+    override fun bindViews() {
+        letraMusica = findViewById(R.id.letra_musica)
+        menssagemErro = findViewById(R.id.menssagem_erro)
+        barraProgresso = findViewById(R.id.barra_progresso)
+        inputNomeCantor = findViewById(R.id.input_nome_cantor)
+        inputNomeMusica = findViewById(R.id.input_nome_musica)
+        btnPesquisarMusica = findViewById(R.id.button_pesquisar_musica)
     }
 
-    fun limparCamposInput() {
+    override fun pegarEntradaUsuario(): Pair<String, String> {
+        val nomeCantor = inputNomeCantor?.editText?.text.toString()
+        val nomeMusica = inputNomeMusica?.editText?.text.toString()
+        return nomeCantor to nomeMusica
+    }
+
+    override fun exibirLetraMusica(letra : String) {
+        Log.d("apiVagalume2", letra)
+        menssagemErro?.text = ""
+        letraMusica?.text = letra
+        limparCamposInput()
+    }
+
+    override fun exibirMensagemErro() {
+        letraMusica?.text = ""
+        menssagemErro?.text = getString(R.string.mensagem_erro_requisicao)
+        Toast.makeText(this@MainActivity, "Dados incorretos", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun limparCamposInput() {
         inputNomeCantor?.editText?.text?.clear()
         inputNomeMusica?.editText?.text?.clear()
         inputNomeCantor?.editText?.requestFocus()
     }
 
+    override fun exibirBarraProgresso() {
+        barraProgresso?.visibility = View.VISIBLE
+    }
+
+    override fun esconderBarraProgresso() {
+        barraProgresso?.visibility = View.INVISIBLE
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
-    fun closeKeyboard() {
+    override fun closeKeyboard() {
         // this will give us the view which is currently focus in this layout
         val view = this.currentFocus
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:padding="16dp"
-    android:background="#ececec">
+    android:background="@color/background_view_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:text="@string/title_mainActivity"
             android:textAllCaps="true"
             android:textSize="24sp"
-            android:textColor="#142d4c"
+            android:textColor="@color/text_color"
             android:textStyle="bold">
         </TextView>
 
@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/logo_vagalume"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/title">
+            app:layout_constraintTop_toTopOf="@id/title"
+            android:contentDescription="@string/vagalume_imagem_description">
         </ImageView>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -43,15 +44,17 @@
             app:layout_constraintTop_toBottomOf="@id/title"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:padding="14dp"
-            android:hint="@string/inputi_singerName"
-            android:textColorHint="#142d4c"
-            app:hintTextColor="#142d4c"
-            app:placeholderTextColor="#142d4c"
-            app:boxStrokeColor="#9fd3c7"
+            android:hint="@string/input_singerName"
+            android:textColorHint="@color/text_color"
+            app:hintTextColor="@color/text_color"
+            app:placeholderTextColor="@color/text_color"
+            app:boxStrokeColor="@color/box_stroke_color"
             app:boxStrokeWidthFocused="4dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -62,15 +65,16 @@
             app:layout_constraintTop_toBottomOf="@+id/input_nome_cantor"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:padding="14dp"
-            android:hint="@string/inputi_songName"
-            android:textColorHint="#142d4c"
-            app:hintTextColor="#142d4c"
-            app:placeholderTextColor="#142d4c"
-            app:boxStrokeColor="#9fd3c7"
+            android:hint="@string/input_songName"
+            android:textColorHint="@color/text_color"
+            app:hintTextColor="@color/text_color"
+            app:placeholderTextColor="@color/text_color"
+            app:boxStrokeColor="@color/box_stroke_color"
             app:boxStrokeWidthFocused="4dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -83,8 +87,8 @@
             android:padding="12dp"
             android:textSize="18sp"
             android:text="@string/btn_searchSong"
-            android:textColor="#ececec"
-            android:backgroundTint="#385170">
+            android:textColor="@color/text_btn_color"
+            android:backgroundTint="@color/background_btn_color">
         </Button>
 
         <TextView
@@ -97,7 +101,7 @@
             android:lineSpacingExtra="8dp"
             android:layout_marginTop="16dp"
             android:textSize="20sp"
-            android:textColor="#142d4c"/>
+            android:textColor="@color/text_color"/>
 
         <TextView
             android:id="@+id/menssagem_erro"
@@ -111,7 +115,7 @@
             android:lineSpacingExtra="8dp"
             android:layout_marginTop="16dp"
             android:textSize="20sp"
-            android:textColor="#B22222"/>
+            android:textColor="@color/mensagem_erro_color"/>
 
         <ProgressBar
             android:id="@+id/barra_progresso"
