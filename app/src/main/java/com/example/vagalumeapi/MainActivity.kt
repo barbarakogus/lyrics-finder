@@ -57,6 +57,12 @@ class MainActivity : AppCompatActivity(), MainContract.view {
     }
 
     override fun pegarEntradaUsuario(): Pair<String, String> {
+        /* O que você acha de levar para a varíavel inputNomeCantor
+        a referência direta para o editText também? Assim evitamos de
+        precisar fazer o .editText onde quisermos manipular o campo.
+        Ficaria algo mais reduzido como inputNomeCantor?.text.toString()
+        O que acha? Assim poderíamos fazer o mesmo no limparCamposInput :)
+        */
         val nomeCantor = inputNomeCantor?.editText?.text.toString()
         val nomeMusica = inputNomeMusica?.editText?.text.toString()
         return nomeCantor to nomeMusica
