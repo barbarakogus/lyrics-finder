@@ -6,6 +6,11 @@ plugins {
 android {
     compileSdk 30
 
+    //implementando a Feature View Binding
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.example.vagalumeapi"
         minSdk 21

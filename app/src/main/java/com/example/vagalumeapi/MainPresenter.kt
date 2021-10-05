@@ -1,11 +1,12 @@
 package com.example.vagalumeapi
 
-class MainPresenter(private val view : MainContract.view) : MainContract.presenter {
+class MainPresenter(private val view : MainContract.View) : MainContract.Presenter {
 
     private val model = MainModel()
 
     override fun buscarLetraMusica(nomeCantor: String, nomeMusica: String) {
         view.exibirBarraProgresso()
+        view.closeKeyboard()
 
         model.buscarLetraMusicaAPI(
             nomeCantor,
@@ -18,8 +19,10 @@ class MainPresenter(private val view : MainContract.view) : MainContract.present
                 }else {
                     view.exibirMensagemErro()
                 }
+                view.esconderBarraProgresso()
             },
             onError = {
+                view.esconderBarraProgresso()
                 view.exibirMensagemErro()
             }
         )

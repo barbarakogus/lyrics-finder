@@ -12,5 +12,4 @@ interface VagalumeAPI {
     ) : ResultadoPesquisa?
 }
 
-
 //tudo q vem acompanhado / idica o Path, tudo q está dps do .com. Qdo encontramos uma ? apartir disso temos as query

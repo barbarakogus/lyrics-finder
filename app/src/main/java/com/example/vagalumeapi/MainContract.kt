@@ -2,14 +2,12 @@ package com.example.vagalumeapi
 
 interface MainContract {
 
-    interface model { //responsavel por fazer a conexao com a API
+    interface Model { //responsavel por fazer a conexao com a API
         fun buscarLetraMusicaAPI(nomeCantor : String, nomeMusica : String, onSuccess : (ResultadoPesquisa) -> Unit, onError : () -> Unit)
     }
 
-    interface view { //responsavel por controlar a tela e tudo q aparece nela
+    interface View { //responsavel por controlar a tela e tudo q aparece nela
 
-        fun bindViews()
-        fun pegarEntradaUsuario() : Pair<String, String>
         fun exibirBarraProgresso()
         fun exibirLetraMusica(letra : String)
         fun limparCamposInput()
@@ -18,7 +16,7 @@ interface MainContract {
         fun esconderBarraProgresso()
     }
 
-    interface presenter { //é a conexao entre view e model. pegar os dados do model e emcaminha pra view
+    interface Presenter { //é a conexao entre view e model. pegar os dados do model e encaminha para view
         fun buscarLetraMusica(nomeCantor: String, nomeMusica: String)
     }
 }

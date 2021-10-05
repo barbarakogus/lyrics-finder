@@ -4,7 +4,6 @@ package com.example.vagalumeapi
 //mudar a cor do cursor
 //aumentar fonte do editText
 //no final da pagina criar um link para direcionar ao vagalume
-//arrumar resourses das cores
 
 import android.content.Context
 import android.os.Build
@@ -12,81 +11,72 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.vagalumeapi.databinding.ActivityMainBinding
 import com.google.android.material.textfield.TextInputLayout
 
-class MainActivity : AppCompatActivity(), MainContract.view {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val presenter = MainPresenter(this)
 
-    private var inputNomeCantor : TextInputLayout? = null
-    private var inputNomeMusica : TextInputLayout? = null
-    var barraProgresso : ProgressBar? = null
-    var letraMusica : TextView? = null
-    var menssagemErro : TextView? = null
-    var btnPesquisarMusica : Button? = null
+    //var que vai receber a instancia do binding
+    private lateinit var binding : ActivityMainBinding
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //podemos remover este setContentView pois a responsabilidade agora é do View Binding
+        //setContentView(R.layout.activity_main)
+
+        //Inflando a view através do View Binding utilizando o inflater da tela, que já existe
+        //sempre = layoutInflater
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        //Chamamos o setContentView para adicionar a view criada pelo View Binding
+        //Esssa view é a representação do layout inflado ou seja o activity_main.xml inflado
+        setContentView(binding.root)
 
         //setTitle("Find your song") ou apenas
         title = "Find your song"
 
-        bindViews()
-        btnPesquisarMusica?.setOnClickListener {
+        binding.buttonPesquisarMusica.setOnClickListener {
             presenter.buscarLetraMusica(pegarEntradaUsuario().first, pegarEntradaUsuario().second)
-            closeKeyboard()
-            esconderBarraProgresso()
         }
     }
 
-    override fun bindViews() {
-        letraMusica = findViewById(R.id.letra_musica)
-        menssagemErro = findViewById(R.id.menssagem_erro)
-        barraProgresso = findViewById(R.id.barra_progresso)
-        inputNomeCantor = findViewById(R.id.input_nome_cantor)
-        inputNomeMusica = findViewById(R.id.input_nome_musica)
-        btnPesquisarMusica = findViewById(R.id.button_pesquisar_musica)
-    }
-
-    override fun pegarEntradaUsuario(): Pair<String, String> {
-        val nomeCantor = inputNomeCantor?.editText?.text.toString()
-        val nomeMusica = inputNomeMusica?.editText?.text.toString()
+    fun pegarEntradaUsuario(): Pair<String, String> { //nao está no contrato,pois a responsavel pela chamada é a view
+        val nomeCantor = binding.inputNomeCantor.editText?.text.toString()
+        val nomeMusica = binding.inputNomeMusica.editText?.text.toString()
         return nomeCantor to nomeMusica
     }
 
     override fun exibirLetraMusica(letra : String) {
         Log.d("apiVagalume2", letra)
-        menssagemErro?.text = ""
-        letraMusica?.text = letra
+        binding.menssagemErro.text = ""
+        binding.letraMusica.text = letra
         limparCamposInput()
     }
 
     override fun exibirMensagemErro() {
-        letraMusica?.text = ""
-        menssagemErro?.text = getString(R.string.mensagem_erro_requisicao)
+        binding.letraMusica.text = ""
+        binding.menssagemErro.text = getString(R.string.mensagem_erro_requisicao)
         Toast.makeText(this@MainActivity, "Dados incorretos", Toast.LENGTH_SHORT).show()
     }
 
     override fun limparCamposInput() {
-        inputNomeCantor?.editText?.text?.clear()
-        inputNomeMusica?.editText?.text?.clear()
-        inputNomeCantor?.editText?.requestFocus()
+        binding.inputNomeMusica.editText?.text?.clear()
+        binding.inputNomeCantor.editText?.text?.clear()
+        binding.inputNomeCantor.requestFocus()
     }
 
     override fun exibirBarraProgresso() {
-        barraProgresso?.visibility = View.VISIBLE
+        binding.barraProgresso.visibility = View.VISIBLE
     }
 
     override fun esconderBarraProgresso() {
-        barraProgresso?.visibility = View.INVISIBLE
+        binding.barraProgresso.visibility = View.INVISIBLE
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
