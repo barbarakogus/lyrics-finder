@@ -47,14 +47,15 @@
             android:hint="@string/input_singerName"
             android:textColorHint="@color/text_color"
             app:hintTextColor="@color/text_color"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:placeholderTextColor="@color/text_color"
             app:boxStrokeColor="@color/box_stroke_color"
+            app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="4dp">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textSize="18sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -68,13 +69,15 @@
             android:hint="@string/input_songName"
             android:textColorHint="@color/text_color"
             app:hintTextColor="@color/text_color"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:placeholderTextColor="@color/text_color"
             app:boxStrokeColor="@color/box_stroke_color"
+            app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="4dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -128,6 +131,22 @@
             android:visibility="gone">
         </ProgressBar>
 
+        <Button
+            android:id="@+id/link_vagalume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/letra_musica"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="10dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/link_vagalume"
+            android:textSize="16sp"
+            android:textColor="@color/text_color_link"
+            android:backgroundTint="@color/backgroung_link"
+            android:visibility="gone">
+        </Button>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

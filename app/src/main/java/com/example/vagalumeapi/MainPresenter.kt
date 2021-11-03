@@ -16,14 +16,17 @@ class MainPresenter(private val view : MainContract.View) : MainContract.Present
                 val pegarLetraMusica = pegarMusica.firstOrNull()?.lyrics
                 if (pegarLetraMusica != null) {
                     view.exibirLetraMusica(pegarLetraMusica)
+                    view.exibirLinkPaginaVagalume(true)
                 }else {
                     view.exibirMensagemErro()
+                    view.exibirLinkPaginaVagalume(false)
                 }
                 view.esconderBarraProgresso()
             },
             onError = {
                 view.esconderBarraProgresso()
                 view.exibirMensagemErro()
+                view.exibirLinkPaginaVagalume(false)
             }
         )
     }

@@ -1,11 +1,8 @@
 package com.example.vagalumeapi
 
-//oq melhorar no app:
-//mudar a cor do cursor
-//aumentar fonte do editText
-//no final da pagina criar um link para direcionar ao vagalume
-
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,16 +12,14 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vagalumeapi.databinding.ActivityMainBinding
-import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val presenter = MainPresenter(this)
 
     //var que vai receber a instancia do binding
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //podemos remover este setContentView pois a responsabilidade agora é do View Binding
@@ -43,6 +38,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         binding.buttonPesquisarMusica.setOnClickListener {
             presenter.buscarLetraMusica(pegarEntradaUsuario().first, pegarEntradaUsuario().second)
+        }
+
+        binding.linkVagalume.setOnClickListener {
+            val goToVagalume = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.vagalume.com.br/"))
+            startActivity(goToVagalume)
         }
     }
 
@@ -79,7 +79,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.barraProgresso.visibility = View.INVISIBLE
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    override fun exibirLinkPaginaVagalume(valor: Boolean) {
+        if (valor) {
+            binding.linkVagalume.visibility = View.VISIBLE
+        }else {
+            binding.linkVagalume.visibility = View.INVISIBLE
+        }
+    }
+
     override fun closeKeyboard() {
         // this will give us the view which is currently focus in this layout
         val view = this.currentFocus
