@@ -1,4 +1,4 @@
-# vagalumeAPI
+# Lyrics finder
 In this project, I make requests to Apple and Vagalume API, using retrofit as a framework to make the requests and callback and coroutines to handle the data. To display the albuns I use the library recyclerView.  
 The goal of this project was to learn and practice this technique.
 
